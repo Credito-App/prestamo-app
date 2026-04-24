@@ -22,11 +22,6 @@ body{
     font-weight:bold;
     display:flex;
     justify-content:space-between;
-    align-items:center;
-}
-
-.icon{
-    font-size:20px;
 }
 
 /* ===== ALERTA ===== */
@@ -35,48 +30,33 @@ body{
     margin:15px;
     padding:15px;
     border-radius:20px;
-    display:flex;
-    gap:10px;
     font-size:14px;
     color:#cfcfcf;
+    animation:fadeIn 1s;
 }
 
-.alerta span{
-    font-size:20px;
-}
-
-/* ===== CARD PRINCIPAL ===== */
+/* ===== CARD ===== */
 .card{
     background:#050517;
     margin:15px;
     padding:20px;
     border-radius:25px;
     box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    animation:fadeUp 1s;
 }
 
-/* TITULO */
 .titulo{
     color:#a855f7;
     font-size:22px;
     margin-bottom:20px;
 }
 
-/* GRID */
 .grid{
     display:flex;
     justify-content:space-between;
-    gap:15px;
 }
 
-/* ===== INFO ===== */
-.info{
-    width:50%;
-}
-
-.info-item{
-    margin-bottom:15px;
-}
-
+/* INFO */
 .label{
     color:#888;
     font-size:13px;
@@ -85,10 +65,9 @@ body{
 .valor{
     color:#a855f7;
     font-weight:bold;
-    font-size:16px;
 }
 
-/* ===== QR ===== */
+/* ===== QR PRO ===== */
 .qr{
     text-align:center;
 }
@@ -98,14 +77,14 @@ body{
     border-radius:10px;
     background:white;
     padding:5px;
+    animation:pulse 2s infinite;
 }
 
 .monto{
     background:#6d28d9;
     margin-top:10px;
-    padding:12px;
-    border-radius:12px;
-    font-size:20px;
+    padding:10px;
+    border-radius:10px;
     font-weight:bold;
 }
 
@@ -115,22 +94,16 @@ body{
     margin:15px;
     padding:20px;
     border-radius:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    text-align:center;
 }
 
 .timer{
-    font-size:26px;
+    font-size:28px;
     color:#a855f7;
     font-weight:bold;
 }
 
-.texto{
-    margin-top:10px;
-    color:#aaa;
-    font-size:14px;
-}
-
-/* ===== BOTON ===== */
+/* ===== BOTON PRO ===== */
 .boton{
     position:fixed;
     bottom:70px;
@@ -143,6 +116,11 @@ body{
     font-size:18px;
     font-weight:bold;
     box-shadow:0 5px 20px rgba(168,85,247,0.5);
+    transition:0.2s;
+}
+
+.boton:active{
+    transform:scale(0.95);
 }
 
 /* ===== MENU ===== */
@@ -156,14 +134,25 @@ body{
     padding:10px 0;
 }
 
-.menu div{
-    text-align:center;
-    font-size:12px;
-    color:#888;
+/* ===== ANIMACIONES ===== */
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+    100%{transform:scale(1);}
 }
 
-.menu .activo{
-    color:#a855f7;
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.expirado{
+    color:red;
 }
 
 </style>
@@ -171,113 +160,83 @@ body{
 
 <body>
 
-<!-- ===== HEADER ===== -->
 <div class="header">
-    NexiPlus
-    <div class="icon">🎧</div>
+    MatePlata
 </div>
 
-<!-- ===== ALERTA ===== -->
 <div class="alerta">
-    <span>🛡️</span>
-    <div>
-        Advertencia: Al realizar el pago, confirma que los datos del deudor sean tuyos.
-        No pagues a cuentas de terceros para evitar fraude.
-    </div>
+    🛡️ Verifica los datos antes de pagar.
 </div>
 
-<!-- ===== CARD INFO ===== -->
 <div class="card">
 
     <div class="titulo">Información del pago</div>
 
     <div class="grid">
 
-        <!-- INFO -->
-        <div class="info">
+        <div>
+            <p class="label">Deudor</p>
+            <p class="valor">Franco Quiroga</p>
 
-            <div class="info-item">
-                <div class="label">Deudor</div>
-                <div class="valor">Maria Eva Almiron</div>
-            </div>
+            <p class="label">Teléfono</p>
+            <p class="valor">1155871097</p>
 
-            <div class="info-item">
-                <div class="valor" >
-                <div class="label">Número de teléfono</div>
-                <div class="valor">1165237392</div>
-            </div>
-            
-                        <div class="info-item">
-                <div class="label"
-            </div>
-            <div class="info-item">
-                <div class="label"
-                <div class="valor"
-
-            </div> 
-
-        
-        <!--  
-Número de C.I.</div>
-                   E-mail</div>
->martinrodrigomontiel@gmail.com</div>   
-             >23703288</div>       
-                    
-                                   
-        -->
-            
+            <p class="label">C.I.</p>
+            <p class="valor">38056325</p>
         </div>
 
-        <!-- QR -->
         <div class="qr">
-            <div style="color:#a855f7;">Escaneá y pagá</div>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PAGO-27000" alt="QR">
-
-            <div class="monto">$54.000.00</div>
+            <p>Escaneá</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PAGO-27000">
+            <div class="monto">$27,000</div>
         </div>
 
     </div>
 
 </div>
 
-<!-- ===== TIMER ===== -->
 <div class="timer-card">
-    <div>Tu código expira en:</div>
-    <div class="timer" id="contador">14:56</div>
-
-    <div class="texto">
-        Utiliza tu banco o billetera para escanear el código QR y realizar el pago.
-    </div>
+    <p>Expira en:</p>
+    <div class="timer" id="contador">15:00</div>
 </div>
 
-<!-- ===== BOTON ===== -->
-<div class="boton">
-    Pagar con mi banco / billetera
+<div class="boton" onclick="pagar()">
+    Pagar ahora
 </div>
 
-<!-- ===== MENU ===== -->
 <div class="menu">
-    <div class="activo">🏠<br>Home</div>
-    <div>👤<br>Mi perfil</div>
+    <div>🏠</div>
+    <div>👤</div>
 </div>
 
-<!-- ===== SCRIPT ===== -->
 <script>
 
-let tiempo = 896;
+let tiempo = 900;
 
-setInterval(() => {
+let intervalo = setInterval(() => {
     let min = Math.floor(tiempo / 60);
     let seg = tiempo % 60;
 
     document.getElementById("contador").innerText =
         `${min}:${seg < 10 ? '0'+seg : seg}`;
 
-    if(tiempo > 0){
-        tiempo--;
+    if(tiempo <= 0){
+        clearInterval(intervalo);
+        document.getElementById("contador").innerText = "EXPIRADO";
+        document.getElementById("contador").classList.add("expirado");
     }
 
+    tiempo--;
+
 }, 1000);
+
+function pagar(){
+    if(navigator.vibrate){
+        navigator.vibrate(200);
+    }
+
+    alert("Redirigiendo al pago...");
+}
 
 </script>
 
