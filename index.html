@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 /* ===== BODY ===== */
 body{
     margin:0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(180deg,#2b0fbf,#0a0a2a);
     color:white;
 }
@@ -18,65 +18,58 @@ body{
 /* ===== HEADER ===== */
 .header{
     padding:20px;
-    font-size:26px;
-    font-weight:bold;
-    display:flex;
-    justify-content:space-between;
+    font-size:24px;
+    font-weight:600;
 }
 
 /* ===== ALERTA ===== */
 .alerta{
     background:#0b0b1f;
-    margin:15px;
-    padding:15px;
-    border-radius:20px;
-    font-size:14px;
+    margin:12px;
+    padding:12px;
+    border-radius:14px;
+    font-size:13px;
     color:#cfcfcf;
-    animation:fadeIn 1s;
 }
 
 /* ===== CARD ===== */
 .card{
     background:#050517;
-    margin:15px;
-    padding:20px;
-    border-radius:25px;
+    margin:12px;
+    padding:16px;
+    border-radius:20px;
     box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    animation:fadeUp 1s;
 }
 
+/* ===== TITULO ===== */
 .titulo{
-    color:#a855f7;
-    font-size:22px;
-    margin-bottom:20px;
+    color:#d946ef;
+    font-size:20px;
+    margin-bottom:15px;
 }
 
-/* 🔥 GRID PRO */
+/* ===== GRID ===== */
 .grid{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:20px;
+    gap:15px;
 }
 
-/* INFO */
+/* ===== TEXTOS ===== */
 .label{
     color:#888;
     font-size:13px;
 }
 
 .valor{
-    color:#a855f7;
-    font-weight:bold;
+    color:#d946ef;
+    font-weight:600;
     margin-bottom:10px;
 }
 
 /* ===== QR ===== */
 .qr{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
     text-align:center;
 }
 
@@ -85,29 +78,30 @@ body{
     border-radius:10px;
     background:white;
     padding:5px;
+    border:2px solid #d946ef;
     animation:pulse 2s infinite;
 }
 
 .monto{
-    background:#6d28d9;
+    background:linear-gradient(90deg,#a21caf,#d946ef);
     margin-top:10px;
     padding:10px;
-    border-radius:10px;
+    border-radius:12px;
     font-weight:bold;
 }
 
 /* ===== TIMER ===== */
 .timer-card{
     background:#050517;
-    margin:15px;
-    padding:20px;
-    border-radius:25px;
+    margin:12px;
+    padding:16px;
+    border-radius:20px;
     text-align:center;
 }
 
 .timer{
-    font-size:28px;
-    color:#a855f7;
+    font-size:26px;
+    color:#d946ef;
     font-weight:bold;
 }
 
@@ -115,15 +109,15 @@ body{
 .boton{
     position:fixed;
     bottom:70px;
-    left:15px;
-    right:15px;
-    background: linear-gradient(90deg,#7c3aed,#9333ea);
+    left:12px;
+    right:12px;
+    background: linear-gradient(90deg,#a21caf,#d946ef);
     text-align:center;
-    padding:18px;
-    border-radius:35px;
-    font-size:18px;
+    padding:16px;
+    border-radius:30px;
+    font-size:16px;
     font-weight:bold;
-    box-shadow:0 5px 20px rgba(168,85,247,0.5);
+    box-shadow:0 5px 20px rgba(217,70,239,0.4);
     transition:0.2s;
 }
 
@@ -142,28 +136,11 @@ body{
     padding:10px 0;
 }
 
-/* ===== RESPONSIVE 📱 ===== */
-@media (max-width: 768px){
-
-    .header{
-        font-size:22px;
-        padding:15px;
-    }
-
-    .card, .alerta, .timer-card{
-        margin:10px;
-        padding:15px;
-    }
+/* ===== RESPONSIVE ===== */
+@media (max-width:768px){
 
     .grid{
         flex-direction:column;
-        align-items:center;
-        text-align:center;
-        gap:25px;
-    }
-
-    .grid div:first-child{
-        width:100%;
         text-align:center;
     }
 
@@ -172,28 +149,15 @@ body{
     }
 
     .boton{
-        font-size:16px;
-        padding:16px;
         bottom:80px;
     }
-
 }
 
-/* ===== ANIMACIONES ===== */
+/* ===== ANIMACION ===== */
 @keyframes pulse{
     0%{transform:scale(1);}
     50%{transform:scale(1.05);}
     100%{transform:scale(1);}
-}
-
-@keyframes fadeIn{
-    from{opacity:0;}
-    to{opacity:1;}
-}
-
-@keyframes fadeUp{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
 }
 
 .expirado{
@@ -221,28 +185,25 @@ body{
 
         <div>
             <p class="label">Deudor</p>
-            <p class="valor"> emilse luciana amado</p>
+            <p class="valor">emilse luciana amado</p>
 
             <p class="label">Teléfono</p>
             <p class="valor">2931455144</p>
-            
-       <p class="label">C.I.</p>
+
+            <p class="label">C.I.</p>
             <p class="valor">40324709</p>
 
             <p class="label">Correo</p>
             <p class="valor">emiluamado@gmail.com</p>
-  
-
-
-              <!--  
-               
-            
-            
-    -->
         </div>
 
+   <!--  
+      
+    -->
+
+        
         <div class="qr">
-            <p>Escaneá</p>
+            <p style="color:#d946ef;">Escaneá</p>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PAGO-27000">
             <div class="monto">$189.000.00</div>
         </div>
