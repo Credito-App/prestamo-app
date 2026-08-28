@@ -318,3 +318,793 @@ document.getElementById("modal").style.display="none";
 </body>
 </html>
   -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de pago en cuotas</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: #172b4d;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           ENCABEZADO
+        ========================= */
+
+        .header {
+            height: 125px;
+            background: #2d3868;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        .logo {
+            width: 84px;
+            height: 84px;
+            background: #888888;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-placeholder {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #004d3b;
+            position: relative;
+        }
+
+        .logo-placeholder::after {
+            content: "";
+            position: absolute;
+            width: 28px;
+            height: 18px;
+            background: #9a6a2c;
+            bottom: 0;
+            left: 10px;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .company-info {
+            margin-left: 24px;
+        }
+
+        .company-name {
+            color: #b7a46a;
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .phone {
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .phone strong {
+            color: #b89b4a;
+        }
+
+        .close-button {
+            position: absolute;
+            right: 19px;
+            bottom: 13px;
+
+            width: 29px;
+            height: 29px;
+
+            border-radius: 50%;
+            border: none;
+
+            background: #ffffff;
+            color: #2d3868;
+
+            font-size: 21px;
+            line-height: 29px;
+
+            cursor: pointer;
+        }
+
+        /* =========================
+           CONTENEDOR PRINCIPAL
+        ========================= */
+
+        .main {
+            background: #ffffff;
+            margin-top: -1px;
+            border-radius: 18px 18px 0 0;
+            min-height: 501px;
+            padding: 17px 13px 30px;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333333;
+            margin-bottom: 16px;
+        }
+
+        /* =========================
+           CHECKBOX GENERAL
+        ========================= */
+
+        .select-all {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            color: #2856c7;
+            font-size: 12px;
+
+            margin-bottom: 12px;
+            margin-left: 1px;
+        }
+
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            accent-color: #2b59c3;
+            cursor: pointer;
+        }
+
+        /* =========================
+           CUOTA
+        ========================= */
+
+        .installment-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .installment-check {
+            width: 29px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .installment {
+            position: relative;
+            flex: 1;
+
+            min-height: 128px;
+
+            background: #ffffff;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 18px rgba(40, 67, 120, 0.10);
+
+            padding: 38px 7px 14px;
+        }
+
+        /* Número 3/3 */
+
+        .installment-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            width: 49px;
+            height: 25px;
+
+            background: #b8eee9;
+
+            border-radius: 0 0 17px 0;
+
+            color: #008f91;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Vencimiento */
+
+        .due-date {
+            position: absolute;
+            right: 16px;
+            top: 10px;
+
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .due-date strong {
+            color: red;
+        }
+
+        /* Líneas internas */
+
+        .row {
+            min-height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 0;
+        }
+
+        .row:first-of-type {
+            border-bottom: 1px dashed #c9c9c9;
+        }
+
+        .label {
+            font-size: 13px;
+            color: #18305b;
+        }
+
+        .label strong {
+            color: red;
+        }
+
+        .amount {
+            font-size: 14px;
+            font-weight: 700;
+            color: #172b4d;
+            padding-right: 0;
+        }
+
+        .date {
+            font-size: 14px;
+            font-weight: 700;
+            color: #172b4d;
+        }
+
+        /* =========================
+           MÉTODOS DE PAGO
+        ========================= */
+
+        .payment-box {
+            margin-top: 19px;
+
+            background: #ffffff;
+
+            border-radius: 13px;
+
+            padding: 9px 10px 0;
+
+            box-shadow:
+                0 4px 18px rgba(40, 67, 120, 0.10);
+        }
+
+        .payment-method {
+            height: 63px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #cccccc;
+        }
+
+        .payment-method:last-child {
+            border-bottom: none;
+        }
+
+        .payment-name {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            color: #172b4d;
+        }
+
+        .card-icon {
+            color: #0649b9;
+            font-size: 18px;
+        }
+
+        .pay-button {
+            width: 111px;
+            height: 40px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #2859c9;
+            color: white;
+
+            font-size: 12px;
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        .pay-button:hover {
+            background: #1e4bab;
+            transform: translateY(-1px);
+        }
+
+        .pay-button:active {
+            transform: scale(0.97);
+        }
+
+        /* =========================
+           MENSAJE
+        ========================= */
+
+        .message {
+            position: fixed;
+
+            top: 20px;
+            right: 20px;
+
+            background: #ffffff;
+
+            padding: 13px 20px;
+
+            border-radius: 8px;
+
+            box-shadow: 0 4px 18px rgba(0,0,0,.15);
+
+            color: #17305c;
+
+            font-size: 14px;
+
+            display: none;
+
+            z-index: 100;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .header {
+                height: 110px;
+                padding: 0 15px;
+            }
+
+            .logo {
+                width: 70px;
+                height: 70px;
+            }
+
+            .company-info {
+                margin-left: 15px;
+            }
+
+            .company-name {
+                font-size: 15px;
+            }
+
+            .phone {
+                font-size: 14px;
+            }
+
+            .main {
+                padding: 15px 10px 25px;
+            }
+
+            .installment {
+                min-height: 145px;
+                padding-top: 42px;
+            }
+
+            .due-date {
+                font-size: 12px;
+                right: 10px;
+            }
+
+            .label {
+                font-size: 12px;
+            }
+
+            .amount,
+            .date {
+                font-size: 13px;
+            }
+
+            .payment-method {
+                height: 65px;
+            }
+
+            .payment-name {
+                font-size: 12px;
+            }
+
+            .pay-button {
+                width: 100px;
+                height: 38px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .header {
+                height: 100px;
+            }
+
+            .logo {
+                width: 62px;
+                height: 62px;
+            }
+
+            .company-info {
+                margin-left: 12px;
+            }
+
+            .company-name {
+                font-size: 14px;
+            }
+
+            .phone {
+                font-size: 13px;
+            }
+
+            .close-button {
+                right: 10px;
+                bottom: 10px;
+            }
+
+            .installment-check {
+                width: 25px;
+            }
+
+            .due-date {
+                font-size: 11px;
+            }
+
+            .payment-name {
+                font-size: 11px;
+            }
+
+            .pay-button {
+                width: 90px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            <!--
+                Si tienes el logo real, reemplaza
+                el contenido por:
+
+                <img src="logo.png" alt="DineroAlInstante">
+            -->
+
+            <div class="logo-placeholder"></div>
+        </div>
+
+        <div class="company-info">
+            <div class="company-name">
+                DineroAlInstante
+            </div>
+
+            <div class="phone">
+                +593 <strong>994****19</strong>
+            </div>
+        </div>
+
+        <button class="close-button" onclick="cerrarVentana()">
+            ×
+        </button>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENIDO
+    ========================== -->
+
+    <main class="main">
+
+        <h2 class="title">
+            Plan de pago en cuotas
+        </h2>
+
+
+        <!-- Seleccionar todo -->
+
+        <label class="select-all">
+
+            <input
+                type="checkbox"
+                class="checkbox"
+                id="selectAll"
+                checked
+                onchange="seleccionarTodo()"
+            >
+
+            <span>
+                Haga clic en seleccionar todo, se puede pagar el monto total
+            </span>
+
+        </label>
+
+
+        <!-- =========================
+             CUOTA 3/3
+        ========================== -->
+
+        <div class="installment-wrapper">
+
+            <div class="installment-check">
+
+                <input
+                    type="checkbox"
+                    class="checkbox cuota"
+                    checked
+                    onchange="actualizarTotal()"
+                >
+
+            </div>
+
+
+            <div class="installment">
+
+                <div class="installment-number">
+                    3/3
+                </div>
+
+
+                <div class="due-date">
+                    <strong>Hoy</strong> vence la
+                    <strong>3ra</strong> cuota
+                </div>
+
+
+                <div class="row">
+
+                    <div class="label">
+                        Monto del pago de la
+                        <strong>3ra</strong> cuota
+                    </div>
+
+                    <div class="amount">
+                        $ 35
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="label">
+                        Fecha de pago de la
+                        <strong>3ra</strong> cuota
+                    </div>
+
+                    <div class="date">
+                        28-08-2026
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             MÉTODOS DE PAGO
+        ========================== -->
+
+        <div class="payment-box">
+
+
+            <!-- PAYVÁLIDA -->
+
+            <div class="payment-method">
+
+                <div class="payment-name">
+
+                    <span class="card-icon">▣</span>
+
+                    <span>
+                        Pagar con Payválida
+                    </span>
+
+                </div>
+
+                <button
+                    class="pay-button"
+                    onclick="pagar('Payválida')"
+                >
+                    Pagar $ 35
+                </button>
+
+            </div>
+
+
+            <!-- EFECTIVO -->
+
+            <div class="payment-method">
+
+                <div class="payment-name">
+
+                    <span class="card-icon">▣</span>
+
+                    <span>
+                        Pagar en efectivo
+                    </span>
+
+                </div>
+
+                <button
+                    class="pay-button"
+                    onclick="pagar('efectivo')"
+                >
+                    Pagar $ 35
+                </button>
+
+            </div>
+
+
+            <!-- JAVACASH -->
+
+            <div class="payment-method">
+
+                <div class="payment-name">
+
+                    <span class="card-icon">▣</span>
+
+                    <span>
+                        Pagar con JavaCash
+                    </span>
+
+                </div>
+
+                <button
+                    class="pay-button"
+                    onclick="pagar('JavaCash')"
+                >
+                    Pagar $ 35
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- Mensaje -->
+
+    <div class="message" id="message"></div>
+
+
+    <script>
+
+        /* =========================
+           SELECCIONAR TODO
+        ========================== */
+
+        function seleccionarTodo() {
+
+            const selectAll =
+                document.getElementById("selectAll");
+
+            const cuotas =
+                document.querySelectorAll(".cuota");
+
+            cuotas.forEach(function(cuota) {
+
+                cuota.checked = selectAll.checked;
+
+            });
+
+        }
+
+
+        /* =========================
+           ACTUALIZAR TOTAL
+        ========================== */
+
+        function actualizarTotal() {
+
+            const cuotas =
+                document.querySelectorAll(".cuota");
+
+            const seleccionadas =
+                Array.from(cuotas).filter(
+                    cuota => cuota.checked
+                );
+
+            const selectAll =
+                document.getElementById("selectAll");
+
+            selectAll.checked =
+                seleccionadas.length === cuotas.length;
+
+        }
+
+
+        /* =========================
+           BOTÓN PAGAR
+        ========================== */
+
+        function pagar(metodo) {
+
+            mostrarMensaje(
+                "Has seleccionado pagar con " + metodo
+            );
+
+        }
+
+
+        /* =========================
+           MENSAJE
+        ========================== */
+
+        function mostrarMensaje(texto) {
+
+            const message =
+                document.getElementById("message");
+
+            message.textContent = texto;
+
+            message.style.display = "block";
+
+            setTimeout(function() {
+
+                message.style.display = "none";
+
+            }, 2500);
+
+        }
+
+
+        /* =========================
+           CERRAR
+        ========================== */
+
+        function cerrarVentana() {
+
+            mostrarMensaje(
+                "Ventana cerrada"
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
