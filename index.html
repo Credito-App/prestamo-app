@@ -322,789 +322,969 @@ document.getElementById("modal").style.display="none";
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan de pago en cuotas</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        body {
-            background: #ffffff;
-            color: #172b4d;
-            min-height: 100vh;
-        }
-
-        /* =========================
-           ENCABEZADO
-        ========================= */
-
-        .header {
-            height: 125px;
-            background: #2d3868;
-            display: flex;
-            align-items: center;
-            padding: 0 24px;
-            position: relative;
-        }
-
-        .logo {
-            width: 84px;
-            height: 84px;
-            background: #888888;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .logo-placeholder {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: #004d3b;
-            position: relative;
-        }
-
-        .logo-placeholder::after {
-            content: "";
-            position: absolute;
-            width: 28px;
-            height: 18px;
-            background: #9a6a2c;
-            bottom: 0;
-            left: 10px;
-            border-radius: 50% 50% 0 0;
-        }
-
-        .company-info {
-            margin-left: 24px;
-        }
-
-        .company-name {
-            color: #b7a46a;
-            font-size: 17px;
-            margin-bottom: 8px;
-        }
-
-        .phone {
-            color: #ffffff;
-            font-size: 16px;
-        }
-
-        .phone strong {
-            color: #b89b4a;
-        }
-
-        .close-button {
-            position: absolute;
-            right: 19px;
-            bottom: 13px;
-
-            width: 29px;
-            height: 29px;
-
-            border-radius: 50%;
-            border: none;
-
-            background: #ffffff;
-            color: #2d3868;
-
-            font-size: 21px;
-            line-height: 29px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            cursor: pointer;
-        }
+<title>Plan de pago</title>
 
-        /* =========================
-           CONTENEDOR PRINCIPAL
-        ========================= */
+<style>
 
-        .main {
-            background: #ffffff;
-            margin-top: -1px;
-            border-radius: 18px 18px 0 0;
-            min-height: 501px;
-            padding: 17px 13px 30px;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-        .title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #333333;
-            margin-bottom: 16px;
-        }
+body {
+    background: #ffffff;
+    color: #172b4d;
+}
 
-        /* =========================
-           CHECKBOX GENERAL
-        ========================= */
+/* =========================
+   ENCABEZADO
+========================= */
 
-        .select-all {
-            display: flex;
-            align-items: center;
-            gap: 11px;
+.header {
+    height: 125px;
+    background: #2d3868;
+    position: relative;
 
-            color: #2856c7;
-            font-size: 12px;
+    display: flex;
+    align-items: center;
 
-            margin-bottom: 12px;
-            margin-left: 1px;
-        }
+    padding-left: 24px;
+}
 
-        .checkbox {
-            width: 16px;
-            height: 16px;
-            accent-color: #2b59c3;
-            cursor: pointer;
-        }
+.logo {
+    width: 84px;
+    height: 84px;
 
-        /* =========================
-           CUOTA
-        ========================= */
+    background: #8b8b8b;
 
-        .installment-wrapper {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        .installment-check {
-            width: 29px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    border-radius: 3px;
 
-        .installment {
-            position: relative;
-            flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            min-height: 128px;
+    overflow: hidden;
+}
 
-            background: #ffffff;
+/* LOGO PROVISIONAL */
 
-            border-radius: 14px;
+.logo-circle {
+    width: 55px;
+    height: 55px;
 
-            box-shadow:
-                0 4px 18px rgba(40, 67, 120, 0.10);
+    border-radius: 50%;
 
-            padding: 38px 7px 14px;
-        }
+    background: #00503d;
 
-        /* Número 3/3 */
+    position: relative;
+}
 
-        .installment-number {
-            position: absolute;
-            left: 0;
-            top: 0;
+.logo-circle::before {
+    content: "";
 
-            width: 49px;
-            height: 25px;
+    position: absolute;
 
-            background: #b8eee9;
+    width: 25px;
+    height: 12px;
 
-            border-radius: 0 0 17px 0;
+    background: #a67c36;
 
-            color: #008f91;
+    bottom: 2px;
+    left: 15px;
 
-            font-size: 14px;
-            font-weight: 700;
+    border-radius: 50%;
+}
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.company {
+    margin-left: 24px;
+}
 
-        /* Vencimiento */
+.company-name {
+    color: #b9a46a;
 
-        .due-date {
-            position: absolute;
-            right: 16px;
-            top: 10px;
+    font-size: 17px;
 
-            color: #333333;
-            font-size: 14px;
-        }
+    margin-bottom: 8px;
+}
 
-        .due-date strong {
-            color: red;
-        }
+.company-phone {
+    color: white;
 
-        /* Líneas internas */
+    font-size: 16px;
+}
 
-        .row {
-            min-height: 44px;
+.company-phone strong {
+    color: #b9a46a;
+}
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+/* BOTÓN X */
 
-            padding: 0 0;
-        }
+.close {
+    position: absolute;
 
-        .row:first-of-type {
-            border-bottom: 1px dashed #c9c9c9;
-        }
+    right: 19px;
+    bottom: 13px;
 
-        .label {
-            font-size: 13px;
-            color: #18305b;
-        }
+    width: 29px;
+    height: 29px;
 
-        .label strong {
-            color: red;
-        }
+    border-radius: 50%;
 
-        .amount {
-            font-size: 14px;
-            font-weight: 700;
-            color: #172b4d;
-            padding-right: 0;
-        }
+    border: none;
 
-        .date {
-            font-size: 14px;
-            font-weight: 700;
-            color: #172b4d;
-        }
+    background: white;
 
-        /* =========================
-           MÉTODOS DE PAGO
-        ========================= */
+    color: #26345e;
 
-        .payment-box {
-            margin-top: 19px;
+    font-size: 21px;
 
-            background: #ffffff;
+    cursor: pointer;
+}
 
-            border-radius: 13px;
+/* =========================
+   CONTENIDO
+========================= */
 
-            padding: 9px 10px 0;
+.container {
+    background: white;
 
-            box-shadow:
-                0 4px 18px rgba(40, 67, 120, 0.10);
-        }
+    border-radius: 18px 18px 0 0;
 
-        .payment-method {
-            height: 63px;
+    margin-top: -1px;
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+    padding: 18px 13px 30px;
 
-            border-bottom: 1px solid #cccccc;
-        }
+    min-height: 500px;
+}
 
-        .payment-method:last-child {
-            border-bottom: none;
-        }
+.title {
+    font-size: 16px;
 
-        .payment-name {
-            display: flex;
-            align-items: center;
-            gap: 7px;
+    font-weight: bold;
 
-            font-size: 13px;
-            font-weight: 700;
+    color: #333;
 
-            color: #172b4d;
-        }
+    margin-bottom: 17px;
+}
 
-        .card-icon {
-            color: #0649b9;
-            font-size: 18px;
-        }
+/* =========================
+   SELECCIONAR TODO
+========================= */
 
-        .pay-button {
-            width: 111px;
-            height: 40px;
+.select-all {
+    display: flex;
 
-            border: none;
-            border-radius: 8px;
+    align-items: center;
 
-            background: #2859c9;
-            color: white;
+    gap: 11px;
 
-            font-size: 12px;
-            font-weight: 500;
+    font-size: 12px;
 
-            cursor: pointer;
+    color: #2856c7;
 
-            transition: all 0.2s ease;
-        }
+    margin-bottom: 12px;
+}
 
-        .pay-button:hover {
-            background: #1e4bab;
-            transform: translateY(-1px);
-        }
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
 
-        .pay-button:active {
-            transform: scale(0.97);
-        }
+    accent-color: #2b59c3;
 
-        /* =========================
-           MENSAJE
-        ========================= */
+    cursor: pointer;
+}
 
-        .message {
-            position: fixed;
+/* =========================
+   CUOTA
+========================= */
 
-            top: 20px;
-            right: 20px;
+.installment-container {
+    display: flex;
 
-            background: #ffffff;
+    width: 100%;
 
-            padding: 13px 20px;
+    align-items: center;
+}
 
-            border-radius: 8px;
+.installment-checkbox {
+    width: 29px;
 
-            box-shadow: 0 4px 18px rgba(0,0,0,.15);
+    display: flex;
 
-            color: #17305c;
+    justify-content: center;
+}
 
-            font-size: 14px;
+.installment {
+    flex: 1;
 
-            display: none;
+    min-height: 128px;
 
-            z-index: 100;
-        }
+    position: relative;
 
-        /* =========================
-           RESPONSIVE
-        ========================= */
+    background: white;
 
-        @media (max-width: 768px) {
+    border-radius: 14px;
 
-            .header {
-                height: 110px;
-                padding: 0 15px;
-            }
+    padding: 38px 7px 10px;
 
-            .logo {
-                width: 70px;
-                height: 70px;
-            }
+    box-shadow:
+        0 4px 18px rgba(40,67,120,.10);
+}
 
-            .company-info {
-                margin-left: 15px;
-            }
+/* 3/3 */
 
-            .company-name {
-                font-size: 15px;
-            }
+.installment-number {
+    position: absolute;
 
-            .phone {
-                font-size: 14px;
-            }
+    top: 0;
+    left: 0;
 
-            .main {
-                padding: 15px 10px 25px;
-            }
+    width: 49px;
+    height: 25px;
 
-            .installment {
-                min-height: 145px;
-                padding-top: 42px;
-            }
+    border-radius: 0 0 17px 0;
 
-            .due-date {
-                font-size: 12px;
-                right: 10px;
-            }
+    background: #b9eee9;
 
-            .label {
-                font-size: 12px;
-            }
+    display: flex;
 
-            .amount,
-            .date {
-                font-size: 13px;
-            }
+    align-items: center;
+    justify-content: center;
 
-            .payment-method {
-                height: 65px;
-            }
+    color: #008f91;
 
-            .payment-name {
-                font-size: 12px;
-            }
+    font-size: 14px;
 
-            .pay-button {
-                width: 100px;
-                height: 38px;
-            }
-        }
+    font-weight: bold;
+}
 
-        @media (max-width: 400px) {
+/* VENCE HOY */
 
-            .header {
-                height: 100px;
-            }
+.due {
+    position: absolute;
 
-            .logo {
-                width: 62px;
-                height: 62px;
-            }
+    right: 16px;
+    top: 10px;
 
-            .company-info {
-                margin-left: 12px;
-            }
+    font-size: 14px;
 
-            .company-name {
-                font-size: 14px;
-            }
+    color: #333;
+}
 
-            .phone {
-                font-size: 13px;
-            }
+.due .red {
+    color: red;
 
-            .close-button {
-                right: 10px;
-                bottom: 10px;
-            }
+    font-weight: bold;
+}
 
-            .installment-check {
-                width: 25px;
-            }
+/* FILAS */
 
-            .due-date {
-                font-size: 11px;
-            }
+.payment-row {
+    height: 44px;
 
-            .payment-name {
-                font-size: 11px;
-            }
+    display: flex;
 
-            .pay-button {
-                width: 90px;
-                font-size: 11px;
-            }
-        }
-    </style>
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px dashed #c7c7c7;
+}
+
+.payment-row:last-child {
+    border-bottom: none;
+}
+
+.description {
+    font-size: 13px;
+
+    color: #19315c;
+}
+
+.description .red {
+    color: red;
+
+    font-weight: bold;
+}
+
+.amount {
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #172b4d;
+}
+
+.date {
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #172b4d;
+}
+
+/* =========================
+   MÉTODOS DE PAGO
+========================= */
+
+.payment-box {
+    margin-top: 19px;
+
+    padding: 8px 10px 0;
+
+    background: white;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 4px 18px rgba(40,67,120,.10);
+}
+
+.payment-method {
+    height: 63px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.payment-method:last-child {
+    border-bottom: none;
+}
+
+.method-name {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #172b4d;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.icon {
+    color: #064bb9;
+
+    font-size: 18px;
+}
+
+/* BOTÓN */
+
+.pay {
+    width: 111px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2859c9;
+
+    color: white;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.pay:hover {
+    background: #1d49ac;
+}
+
+.pay:active {
+    transform: scale(.96);
+}
+
+/* =========================
+   MENSAJE
+========================= */
+
+.notification {
+    position: fixed;
+
+    top: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: #ffffff;
+
+    padding: 13px 20px;
+
+    border-radius: 8px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.18);
+
+    font-size: 14px;
+
+    color: #172b4d;
+
+    display: none;
+
+    z-index: 1000;
+}
+
+/* =========================
+   PANTALLA DE CARGA
+========================= */
+
+.loading-screen {
+    position: fixed;
+
+    inset: 0;
+
+    background: white;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    z-index: 2000;
+}
+
+.spinner {
+    width: 42px;
+    height: 42px;
+
+    border: 4px solid #ddd;
+
+    border-top: 4px solid #2859c9;
+
+    border-radius: 50%;
+
+    animation: spin 1s linear infinite;
+
+    margin-bottom: 18px;
+}
+
+.loading-text {
+    color: #26385f;
+
+    font-size: 15px;
+}
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px) {
+
+    .header {
+        height: 110px;
+
+        padding-left: 15px;
+    }
+
+    .logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .company {
+        margin-left: 15px;
+    }
+
+    .company-name {
+        font-size: 15px;
+    }
+
+    .company-phone {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 16px 10px;
+    }
+
+    .installment {
+        min-height: 140px;
+    }
+
+    .due {
+        right: 10px;
+
+        font-size: 12px;
+    }
+
+    .description {
+        font-size: 12px;
+    }
+
+    .amount,
+    .date {
+        font-size: 13px;
+    }
+
+    .method-name {
+        font-size: 12px;
+    }
+
+    .pay {
+        width: 100px;
+    }
+
+}
+
+@media(max-width:400px) {
+
+    .header {
+        height: 100px;
+    }
+
+    .logo {
+        width: 62px;
+        height: 62px;
+    }
+
+    .company {
+        margin-left: 12px;
+    }
+
+    .company-name {
+        font-size: 14px;
+    }
+
+    .company-phone {
+        font-size: 13px;
+    }
+
+    .payment-row {
+        height: 47px;
+    }
+
+    .description {
+        font-size: 11px;
+    }
+
+    .due {
+        font-size: 11px;
+    }
+
+    .pay {
+        width: 90px;
+
+        font-size: 11px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-    <!-- =========================
-         ENCABEZADO
-    ========================== -->
+<!-- =========================
+     ENCABEZADO
+========================= -->
 
-    <header class="header">
+<header class="header">
 
-        <div class="logo">
-            <!--
-                Si tienes el logo real, reemplaza
-                el contenido por:
+    <div class="logo">
 
-                <img src="logo.png" alt="DineroAlInstante">
-            -->
+        <div class="logo-circle"></div>
 
-            <div class="logo-placeholder"></div>
+    </div>
+
+    <div class="company">
+
+        <div class="company-name">
+            DineroAlInstante
         </div>
 
-        <div class="company-info">
-            <div class="company-name">
-                DineroAlInstante
-            </div>
-
-            <div class="phone">
-                +593 <strong>994****19</strong>
-            </div>
+        <div class="company-phone">
+            +593 <strong>994****19</strong>
         </div>
 
-        <button class="close-button" onclick="cerrarVentana()">
-            ×
-        </button>
+    </div>
 
-    </header>
+    <button class="close" onclick="cerrar()">
+        ×
+    </button>
+
+</header>
+
+
+<!-- =========================
+     CONTENIDO
+========================= -->
+
+<main class="container">
+
+    <h2 class="title">
+        Plan de pago en cuotas
+    </h2>
+
+
+    <!-- SELECCIONAR TODO -->
+
+    <label class="select-all">
+
+        <input
+            type="checkbox"
+            id="selectAll"
+            checked
+            onchange="selectAll()"
+        >
+
+        <span>
+            Haga clic en seleccionar todo, se puede pagar el monto total
+        </span>
+
+    </label>
 
 
     <!-- =========================
-         CONTENIDO
-    ========================== -->
+         CUOTA
+    ========================= -->
 
-    <main class="main">
+    <div class="installment-container">
 
-        <h2 class="title">
-            Plan de pago en cuotas
-        </h2>
-
-
-        <!-- Seleccionar todo -->
-
-        <label class="select-all">
+        <div class="installment-checkbox">
 
             <input
                 type="checkbox"
-                class="checkbox"
-                id="selectAll"
+                class="quota"
                 checked
-                onchange="seleccionarTodo()"
+                onchange="checkQuota()"
             >
 
-            <span>
-                Haga clic en seleccionar todo, se puede pagar el monto total
-            </span>
-
-        </label>
+        </div>
 
 
-        <!-- =========================
-             CUOTA 3/3
-        ========================== -->
+        <div class="installment">
 
-        <div class="installment-wrapper">
+            <div class="installment-number">
+                3/3
+            </div>
 
-            <div class="installment-check">
 
-                <input
-                    type="checkbox"
-                    class="checkbox cuota"
-                    checked
-                    onchange="actualizarTotal()"
-                >
+            <div class="due">
+
+                <span class="red">
+                    Hoy
+                </span>
+
+                vence la
+
+                <span class="red">
+                    3ra
+                </span>
+
+                cuota
 
             </div>
 
 
-            <div class="installment">
+            <div class="payment-row">
 
-                <div class="installment-number">
-                    3/3
-                </div>
+                <div class="description">
 
+                    Monto del pago de la
 
-                <div class="due-date">
-                    <strong>Hoy</strong> vence la
-                    <strong>3ra</strong> cuota
-                </div>
+                    <span class="red">
+                        3ra
+                    </span>
 
-
-                <div class="row">
-
-                    <div class="label">
-                        Monto del pago de la
-                        <strong>3ra</strong> cuota
-                    </div>
-
-                    <div class="amount">
-                        $ 35
-                    </div>
+                    cuota
 
                 </div>
 
+                <div class="amount">
+                    $ 35
+                </div>
 
-                <div class="row">
+            </div>
 
-                    <div class="label">
-                        Fecha de pago de la
-                        <strong>3ra</strong> cuota
-                    </div>
 
-                    <div class="date">
-                        28-08-2026
-                    </div>
+            <div class="payment-row">
 
+                <div class="description">
+
+                    Fecha de pago de la
+
+                    <span class="red">
+                        3ra
+                    </span>
+
+                    cuota
+
+                </div>
+
+                <div class="date">
+                    28-08-2026
                 </div>
 
             </div>
 
         </div>
 
-
-        <!-- =========================
-             MÉTODOS DE PAGO
-        ========================== -->
-
-        <div class="payment-box">
+    </div>
 
 
-            <!-- PAYVÁLIDA -->
+    <!-- =========================
+         MÉTODOS DE PAGO
+    ========================= -->
 
-            <div class="payment-method">
+    <div class="payment-box">
 
-                <div class="payment-name">
 
-                    <span class="card-icon">▣</span>
+        <!-- PAYVALIDA -->
 
-                    <span>
-                        Pagar con Payválida
-                    </span>
+        <div class="payment-method">
 
-                </div>
+            <div class="method-name">
 
-                <button
-                    class="pay-button"
-                    onclick="pagar('Payválida')"
-                >
-                    Pagar $ 35
-                </button>
+                <span class="icon">
+                    ▣
+                </span>
+
+                <span>
+                    Pagar con Payválida
+                </span>
 
             </div>
 
-
-            <!-- EFECTIVO -->
-
-            <div class="payment-method">
-
-                <div class="payment-name">
-
-                    <span class="card-icon">▣</span>
-
-                    <span>
-                        Pagar en efectivo
-                    </span>
-
-                </div>
-
-                <button
-                    class="pay-button"
-                    onclick="pagar('efectivo')"
-                >
-                    Pagar $ 35
-                </button>
-
-            </div>
-
-
-            <!-- JAVACASH -->
-
-            <div class="payment-method">
-
-                <div class="payment-name">
-
-                    <span class="card-icon">▣</span>
-
-                    <span>
-                        Pagar con JavaCash
-                    </span>
-
-                </div>
-
-                <button
-                    class="pay-button"
-                    onclick="pagar('JavaCash')"
-                >
-                    Pagar $ 35
-                </button>
-
-            </div>
+            <button
+                class="pay"
+                onclick="pagar('Payválida')"
+            >
+                Pagar $ 35
+            </button>
 
         </div>
 
-    </main>
+
+        <!-- EFECTIVO -->
+
+        <div class="payment-method">
+
+            <div class="method-name">
+
+                <span class="icon">
+                    ▣
+                </span>
+
+                <span>
+                    Pagar en efectivo
+                </span>
+
+            </div>
+
+            <button
+                class="pay"
+                onclick="pagar('efectivo')"
+            >
+                Pagar $ 35
+            </button>
+
+        </div>
 
 
-    <!-- Mensaje -->
+        <!-- JAVACASH -->
 
-    <div class="message" id="message"></div>
+        <div class="payment-method">
 
+            <div class="method-name">
 
-    <script>
+                <span class="icon">
+                    ▣
+                </span>
 
-        /* =========================
-           SELECCIONAR TODO
-        ========================== */
+                <span>
+                    Pagar con JavaCash
+                </span>
 
-        function seleccionarTodo() {
+            </div>
 
-            const selectAll =
-                document.getElementById("selectAll");
+            <button
+                class="pay"
+                onclick="pagar('JavaCash')"
+            >
+                Pagar $ 35
+            </button>
 
-            const cuotas =
-                document.querySelectorAll(".cuota");
+        </div>
 
-            cuotas.forEach(function(cuota) {
+    </div>
 
-                cuota.checked = selectAll.checked;
-
-            });
-
-        }
-
-
-        /* =========================
-           ACTUALIZAR TOTAL
-        ========================== */
-
-        function actualizarTotal() {
-
-            const cuotas =
-                document.querySelectorAll(".cuota");
-
-            const seleccionadas =
-                Array.from(cuotas).filter(
-                    cuota => cuota.checked
-                );
-
-            const selectAll =
-                document.getElementById("selectAll");
-
-            selectAll.checked =
-                seleccionadas.length === cuotas.length;
-
-        }
+</main>
 
 
-        /* =========================
-           BOTÓN PAGAR
-        ========================== */
+<!-- NOTIFICACIÓN -->
 
-        function pagar(metodo) {
-
-            mostrarMensaje(
-                "Has seleccionado pagar con " + metodo
-            );
-
-        }
+<div
+    class="notification"
+    id="notification"
+></div>
 
 
-        /* =========================
-           MENSAJE
-        ========================== */
+<!-- PANTALLA DE CARGA -->
 
-        function mostrarMensaje(texto) {
+<div
+    class="loading-screen"
+    id="loading"
+>
 
-            const message =
-                document.getElementById("message");
+    <div class="spinner"></div>
 
-            message.textContent = texto;
+    <div class="loading-text">
+        Procesando pago...
+    </div>
 
-            message.style.display = "block";
-
-            setTimeout(function() {
-
-                message.style.display = "none";
-
-            }, 2500);
-
-        }
+</div>
 
 
-        /* =========================
-           CERRAR
-        ========================== */
+<script>
 
-        function cerrarVentana() {
+/* =========================
+   SELECCIONAR TODO
+========================= */
 
-            mostrarMensaje(
-                "Ventana cerrada"
-            );
+function selectAll() {
 
-        }
+    const principal =
+        document.getElementById("selectAll");
 
-    </script>
+    const cuotas =
+        document.querySelectorAll(".quota");
+
+    cuotas.forEach(function(cuota) {
+
+        cuota.checked = principal.checked;
+
+    });
+
+}
+
+
+/* =========================
+   CHECK CUOTA
+========================= */
+
+function checkQuota() {
+
+    const cuotas =
+        document.querySelectorAll(".quota");
+
+    const seleccionadas =
+        document.querySelectorAll(".quota:checked");
+
+    document.getElementById("selectAll").checked =
+        cuotas.length === seleccionadas.length;
+
+}
+
+
+/* =========================
+   PAGAR
+========================= */
+
+function pagar(metodo) {
+
+    const cuota =
+        document.querySelector(".quota");
+
+    if (!cuota.checked) {
+
+        mostrarMensaje(
+            "Seleccione la cuota que desea pagar"
+        );
+
+        return;
+    }
+
+
+    /*
+       Aquí empieza la simulación
+       del proceso de pago.
+    */
+
+    document.getElementById("loading")
+        .style.display = "flex";
+
+
+    setTimeout(function() {
+
+        document.getElementById("loading")
+            .style.display = "none";
+
+
+        mostrarMensaje(
+            "Método seleccionado: " + metodo
+        );
+
+    }, 1800);
+
+}
+
+
+/* =========================
+   NOTIFICACIÓN
+========================= */
+
+function mostrarMensaje(texto) {
+
+    const notification =
+        document.getElementById("notification");
+
+    notification.innerText = texto;
+
+    notification.style.display = "block";
+
+
+    setTimeout(function() {
+
+        notification.style.display = "none";
+
+    }, 2500);
+
+}
+
+
+/* =========================
+   CERRAR
+========================= */
+
+function cerrar() {
+
+    mostrarMensaje(
+        "Ventana cerrada"
+    );
+
+}
+
+</script>
 
 </body>
 </html>
